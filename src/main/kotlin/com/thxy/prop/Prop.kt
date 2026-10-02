@@ -6,7 +6,12 @@ import com.thxy.prop.unary.Not
 interface Prop {
     val name: String
     override fun toString(): String
-    fun eval(vararg envs: Pair<Atom, Boolean>): Boolean
+    fun eval(vararg envs: Pair<AtomProp, Boolean>): Boolean
+    fun eval(envList: List<Pair<AtomProp, Boolean>>): Boolean = eval(*envList.toTypedArray())
+    fun eval(envMap: Map<AtomProp, Boolean>): Boolean = eval(envMap.toList())
+
+
+    fun atomProps(): Set<AtomProp>
 
     operator fun not(): Prop = Not(this)
     infix fun and(other: Prop): Prop = And(this, other)
@@ -17,14 +22,18 @@ interface Prop {
     infix fun nor(other: Prop): Prop = Nor(this, other)
     infix fun xor(other: Prop): Prop = Xor(this, other)
 
-    fun allAssignments(vararg vars: Atom): Sequence<Boolean> = sequence {
+    fun allAssignments(): Sequence<Pair<Map<AtomProp, Boolean>, Boolean>> = sequence {
+        val vars = atomProps().toList()
         val n = vars.size
         for (i in 0..<(1 shl vars.size)) {
             vars.indices.map {
                 vars[it] to ((i shl (n - it - 1) and 1) == 1)
             }.also {
-                yield(eval(*it.toTypedArray()))
+                yield(it.toMap() to eval(it))
             }
         }
     }
+
+    fun isTrue(): Boolean = !allAssignments().any { !it.second }
+    fun isFalse(): Boolean = !allAssignments().any { it.second }
 }

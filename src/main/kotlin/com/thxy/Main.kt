@@ -3,7 +3,7 @@ package com.thxy
 import com.thxy.prop.*
 
 fun main() {
-    val a = Atom("A")
+    val a = AtomProp("A")
     val b = !a xor a
-    println(b.eval(a to true))
+    println(b.allAssignments().toList())
 }
