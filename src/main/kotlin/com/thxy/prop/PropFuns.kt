@@ -9,4 +9,10 @@ fun andAll(vararg props: Prop): Prop =
     }
 
 fun isImp(propSet: Set<Prop>, prop: Prop): Boolean =
-    prop.evals(andAll(*propSet.toTypedArray()).trueValues()).all { it.second }
+    (andAll(*propSet.toTypedArray()) imp prop).isAlwaysTrue()
+
+fun isImp(a: Prop, b: Prop): Boolean = isImp(setOf(a), b)
+fun isImp(a: Set<Prop>, b: Set<Prop>): Boolean = isImp(a, andAll(*b.toTypedArray()))
+
+fun isEqv(a: Set<Prop>, b: Set<Prop>): Boolean = isImp(a, b) && isImp(b, a)
+fun isEqv(a: Prop, b: Prop): Boolean = isImp(a, b) && isImp(b, a)
