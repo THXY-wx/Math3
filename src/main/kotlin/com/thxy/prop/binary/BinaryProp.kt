@@ -1,6 +1,6 @@
 package com.thxy.prop.binary
 
-import com.thxy.prop.AtomProp
+import com.thxy.prop.atom.AtomProp
 import com.thxy.prop.Prop
 
 abstract class BinaryProp(open val a: Prop, open val b: Prop) : Prop {

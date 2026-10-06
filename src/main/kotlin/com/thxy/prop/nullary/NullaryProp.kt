@@ -1,6 +1,6 @@
 package com.thxy.prop.nullary
 
-import com.thxy.prop.AtomProp
+import com.thxy.prop.atom.AtomProp
 import com.thxy.prop.Prop
 
 abstract class NullaryProp : Prop {

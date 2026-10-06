@@ -1,6 +1,6 @@
 package com.thxy.prop.binary
 
-import com.thxy.prop.AtomProp
+import com.thxy.prop.atom.AtomProp
 import com.thxy.prop.Prop
 
 data class Imp(override val a: Prop, override val b: Prop): BinaryProp(a,b) {

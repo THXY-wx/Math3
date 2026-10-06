@@ -1,6 +1,6 @@
 package com.thxy.prop.unary
 
-import com.thxy.prop.AtomProp
+import com.thxy.prop.atom.AtomProp
 import com.thxy.prop.Prop
 
 abstract class UnaryProp(open val prop: Prop) : Prop {
