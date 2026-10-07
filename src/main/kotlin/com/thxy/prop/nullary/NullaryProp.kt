@@ -8,5 +8,5 @@ abstract class NullaryProp : Prop {
     abstract fun eval(): Boolean
     override fun eval(vararg envs: Pair<AtomProp, Boolean>): Boolean = eval()
     final override fun toString(): String = name
-    override fun atomProps(): Set<AtomProp> = emptySet()
+    override fun atomProps() = emptySet<AtomProp>()
 }

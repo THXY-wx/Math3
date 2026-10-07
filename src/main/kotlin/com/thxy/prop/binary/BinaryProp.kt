@@ -7,5 +7,5 @@ abstract class BinaryProp(open val a: Prop, open val b: Prop) : Prop {
     abstract override val name: String
     abstract override fun eval(vararg envs: Pair<AtomProp, Boolean>): Boolean
     final override fun toString(): String = "($a $name $b)"
-    override fun atomProps(): Set<AtomProp> = a.atomProps() + b.atomProps()
+    override fun atomProps() = a.atomProps() + b.atomProps()
 }

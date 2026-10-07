@@ -7,5 +7,5 @@ abstract class UnaryProp(open val prop: Prop) : Prop {
     abstract override val name: String
     abstract override fun eval(vararg envs: Pair<AtomProp, Boolean>): Boolean
     final override fun toString(): String = "$name$prop"
-    override fun atomProps(): Set<AtomProp> = prop.atomProps()
+    override fun atomProps() = prop.atomProps()
 }

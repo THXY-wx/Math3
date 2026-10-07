@@ -15,22 +15,22 @@ interface Prop {
 
     override fun toString(): String
     fun eval(vararg envs: Pair<AtomProp, Boolean>): Boolean
-    fun eval(envList: List<Pair<AtomProp, Boolean>>): Boolean = eval(*envList.toTypedArray())
-    fun eval(envMap: Map<AtomProp, Boolean>): Boolean = eval(envMap.toList())
+    fun eval(envList: List<Pair<AtomProp, Boolean>>) = eval(*envList.toTypedArray())
+    fun eval(envMap: Map<AtomProp, Boolean>) = eval(envMap.toList())
 
 
     fun atomProps(): Set<AtomProp>
 
-    operator fun not(): Prop = Not(this)
-    infix fun and(other: Prop): Prop = And(this, other)
-    infix fun or(other: Prop): Prop = Or(this, other)
-    infix fun imp(other: Prop): Prop = Imp(this, other)
-    infix fun iff(other: Prop): Prop = Iff(this, other)
-    infix fun nand(other: Prop): Prop = Nand(this, other)
-    infix fun nor(other: Prop): Prop = Nor(this, other)
-    infix fun xor(other: Prop): Prop = Xor(this, other)
+    operator fun not() = Not(this)
+    infix fun and(other: Prop) = And(this, other)
+    infix fun or(other: Prop) = Or(this, other)
+    infix fun imp(other: Prop) = Imp(this, other)
+    infix fun iff(other: Prop) = Iff(this, other)
+    infix fun nand(other: Prop) = Nand(this, other)
+    infix fun nor(other: Prop) = Nor(this, other)
+    infix fun xor(other: Prop) = Xor(this, other)
 
-    fun allAssignments(): Sequence<Pair<Map<AtomProp, Boolean>, Boolean>> = sequence {
+    fun allAssignments() = sequence {
         val vars = atomProps().toList()
         val n = vars.size
         for (i in 0..<(1 shl vars.size)) {
@@ -42,13 +42,13 @@ interface Prop {
         }
     }
 
-    fun isAlwaysTrue(): Boolean = allAssignments().all { it.second }
-    fun isAlwaysFalse(): Boolean = allAssignments().all { !it.second }
-    fun isCanBeTrue(): Boolean = allAssignments().any { it.second }
-    fun trueValues(): Sequence<Map<AtomProp, Boolean>> =
+    fun isAlwaysTrue() = allAssignments().all { it.second }
+    fun isAlwaysFalse() = allAssignments().all { !it.second }
+    fun isCanBeTrue() = allAssignments().any { it.second }
+    fun trueValues() =
         this@Prop.allAssignments().filter { it.second }.map { it.first }
 
-    fun evals(envSequence: Sequence<Map<AtomProp, Boolean>>): Sequence<Pair<Map<AtomProp, Boolean>, Boolean>> =
+    fun evals(envSequence: Sequence<Map<AtomProp, Boolean>>) =
         sequence {
             envSequence.forEach {
                 yield(it to this@Prop.eval(it))

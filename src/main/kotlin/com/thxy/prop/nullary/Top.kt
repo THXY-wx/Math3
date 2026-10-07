@@ -1,6 +1,6 @@
 package com.thxy.prop.nullary
 
-class Top(): NullaryProp() {
+class Top : NullaryProp() {
     override val name = "⊤"
-    override fun eval(): Boolean = true
+    override fun eval() = true
 }

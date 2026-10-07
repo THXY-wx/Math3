@@ -5,5 +5,5 @@ import com.thxy.prop.Prop
 
 data class Or(override val a: Prop, override val b: Prop) : BinaryProp(a, b) {
     override val name = "∨"
-    override fun eval(vararg envs: Pair<AtomProp, Boolean>): Boolean = a.eval(*envs) || b.eval(*envs)
+    override fun eval(vararg envs: Pair<AtomProp, Boolean>) = a.eval(*envs) || b.eval(*envs)
 }
